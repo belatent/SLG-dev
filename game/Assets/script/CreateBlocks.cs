@@ -10,12 +10,11 @@ public class CreateBlocks : MonoBehaviour {
     float blockWidth;
     float blockLength;
 
-    float length;
-    float width;
+    public static float length;
+    public static float width;
 
     public GameObject singleBlock;
     public GameObject singlePath;
-    public GameObject camera;
 	// Use this for initialization
 	void Start () {
         setUp();
@@ -58,7 +57,7 @@ public class CreateBlocks : MonoBehaviour {
                 
                 RaycastHit hit;
 
-                if (Physics.Raycast(position,Vector3.back, out hit,1))
+                if (Physics.Raycast(position,Vector3.forward, out hit,1))
                 {
                     print(hit.collider.name);
 
