@@ -10,10 +10,12 @@ public class CreateBlocks : MonoBehaviour {
     float blockWidth;
     float blockLength;
 
-    int length;
-    int width;
+    float length;
+    float width;
 
     public GameObject singleBlock;
+    public GameObject singlePath;
+    public GameObject camera;
 	// Use this for initialization
 	void Start () {
         setUp();
@@ -41,27 +43,36 @@ public class CreateBlocks : MonoBehaviour {
 
     void setUpBlocksLW()
     {
-        length = (int)(bkLength / blockLength);
-        width = (int)(bkWidth / blockWidth);
+        length = bkLength / blockLength;
+        width = bkWidth / blockWidth;
     }
 
     void createBlocks()
     {
-        //print(singleBlock.GetComponents<BoxCollider>().Length);
-        //foreach(BoxCollider collider in singleBlock.GetComponents<BoxCollider>())
-        //    Destroy(collider);
-
-        //singleBlock.AddComponent<BoxCollider>();
-        //singleBlock.GetComponent<BoxCollider>().size.Set(blockLength,blockWidth,(float)0.2);
-
-        for(int i = -length/2; i < length/2; i++)
+        Vector3 position;
+        for (int i = (int)-length/2 -1; i < length/2; i++)
         {
-            for(int j = -width/2; j < width/2; j++)
+            for(int j = (int)-width/2 -1; j < width/2; j++)
             {
-                singleBlock = (GameObject)Instantiate(singleBlock, new Vector3(i*blockLength + (float)1.28/2, j* blockWidth + (float)1.28/2, 0), Quaternion.identity);
+                position = new Vector3(i * blockLength + (float)blockLength / 2, j * blockWidth + (float)blockWidth / 2, 0);
+                
+                RaycastHit hit;
+
+                if (Physics.Raycast(position,Vector3.back, out hit,1))
+                {
+                    print(hit.collider.name);
+
+                    if (hit.collider.name.Equals("Objects"))
+                        singleBlock = (GameObject)Instantiate(singleBlock, position, Quaternion.identity);
+                    else
+                        singlePath = (GameObject)Instantiate(singlePath, position, Quaternion.identity);
+                }
+                else
+                    singlePath = (GameObject)Instantiate(singlePath, position, Quaternion.identity);
             }
         }
     }
+
 
     void setUp()
     {

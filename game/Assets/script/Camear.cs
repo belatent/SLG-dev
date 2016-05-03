@@ -33,15 +33,16 @@ public class Camear : MonoBehaviour {
         {
             Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            Physics.Raycast(ray, out hit);
+            if(Physics.Raycast(ray, out hit) && !(hit.collider.name.Equals("Objects"))) { 
+
+            print(hit.collider.name);
 
             Pos[0] = new Vector3(hit.collider.transform.position.x, player.transform.position.y, 0);
             Pos[1] = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, 0);
 
             point = 0;
             move();
-            //print(hit.point.x +"   "+ hit.point.y);
-            print(Pos[0]);
+            }
 
         }
     }
