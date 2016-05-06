@@ -15,8 +15,9 @@ public class CreateBlocks : MonoBehaviour {
 
     public GameObject singleBlock;
     public GameObject singlePath;
-	// Use this for initialization
-	void Start () {
+    public GameObject singleMovingRange;
+    // Use this for initialization
+    void Start () {
         setUp();
         print("block nums\t"+length+"\t"+width);
         print("block size\t\t" + blockLength + "\t" + blockWidth);
@@ -27,6 +28,22 @@ public class CreateBlocks : MonoBehaviour {
 	void Update () {
         
 	}
+
+    //void createMovingRange(int mr, Point pos, Vector3[,] coordMap, int[,] pathMap)
+    //{
+    //    getInfo();
+    //    setUpBlocksLW();
+
+    //    drawMovingRange(mr,pos,coordMap,pathMap);
+    //}
+
+    //void drawMovingRange(int mr, Point pos, Vector3[,] coordMap, int[,] pathMap)
+    //{
+    //    for(int i = 0; i <= mr; i++)
+    //    {
+    //        singleMovingRange = (GameObject)Instantiate(singleMovingRange, position, Quaternion.identity);
+    //    }
+    //}
 
     void getInfo()
     {
