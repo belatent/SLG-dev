@@ -209,9 +209,14 @@
     <Compile Include="Assets\iTweenEditor\iTweenEvent.cs" />
     <Compile Include="Assets\iTweenEditor\iTweenPath.cs" />
     <Compile Include="Assets\script\AStar.cs" />
-    <Compile Include="Assets\script\Camear.cs" />
-    <Compile Include="Assets\script\CreateBlocks.cs" />
+    <Compile Include="Assets\script\Block.cs" />
+    <Compile Include="Assets\script\BlockCreater.cs" />
+    <Compile Include="Assets\script\GameManager.cs" />
+    <Compile Include="Assets\script\PathFinder.cs" />
     <Compile Include="Assets\script\character.cs" />
+    <Compile Include="Assets\script\helperMethods.cs" />
+    <Compile Include="Assets\script\old backup\Camear.cs" />
+    <Compile Include="Assets\script\old backup\CreateBlocks.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\NGUI\Examples\Atlases\Fantasy\Fantasy Font - Normal.txt" />
