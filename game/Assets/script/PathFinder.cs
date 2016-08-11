@@ -12,8 +12,7 @@ public class PathFinder : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
-
+        getBlockList();
     }
 
     // Update is called once per frame
@@ -24,7 +23,7 @@ public class PathFinder : MonoBehaviour
 
     void move()
     {
-        if (movingPath != null)
+        if (movingPath != null && movingPath.Length > 0)
         {
             //print(movingPath[movingPath.Length - 1].x + " " + movingPath[movingPath.Length - 1].y + " " + movingPath[movingPath.Length - 1].z);
             //保存最终目标坐标，在计算新路径时强制更新坐标
@@ -40,7 +39,7 @@ public class PathFinder : MonoBehaviour
     }
 
     //find path，A*算法
-    ArrayList findPath(Point start, Point end)
+    public ArrayList findPath(Point start, Point end)
     {
         print("Start Point: (" + start.X + ", " + start.Y + ") || End Point: ("+ end.X + ", " +end.Y+")");
         //坐标实际表示[Y轴,X轴]
