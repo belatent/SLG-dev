@@ -20,3 +20,6 @@
 sysinfo.txt
 
 .DS_Store
+*.csproj
+project/game.sln
+*.userprefs
