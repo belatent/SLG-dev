@@ -28,7 +28,7 @@ public class Camear : MonoBehaviour
 
     int getMovingRange()
     {
-        character info = (character)player.GetComponent("character");
+        Character info = (Character)player.GetComponent("character");
 
         return info.attr.movingRange;
     }

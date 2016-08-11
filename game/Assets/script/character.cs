@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class character : MonoBehaviour
+public class Character : MonoBehaviour
 {
     public class attribute {
         int level;

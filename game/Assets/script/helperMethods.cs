@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class helperMethods {
+public class HelperMethods {
 
     /// <summary>
     /// 转换float为int，有小数进1
