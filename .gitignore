@@ -1,8 +1,12 @@
 Library/
 Temp/
+资源/
+创意(有任何想法在这里更新)/
 *.sln
 *.csproj
 *.sln
 *.userprefs
 *.unityproj
 *.DS_Store
+*.chche
+*.suo
