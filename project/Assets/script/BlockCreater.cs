@@ -35,7 +35,7 @@ public class BlockCreater : MonoBehaviour {
         Block result = null;
         foreach (Block block in blocklist)
         {
-            if (block.coord.X == position.x && block.coord.Y == position.x)
+            if (block.coord.X == position.x && block.coord.Y == position.y)
                 result = block;
         }
         return result;
@@ -47,18 +47,26 @@ public class BlockCreater : MonoBehaviour {
         Point start = new Point(playerBlock.coord.y + 1, playerBlock.coord.x + 1);
         Point end = new Point(targetBlock.coord.y + 1, targetBlock.coord.x + 1);
         PathFinder pf = (PathFinder)this.gameObject.GetComponent("PathFinder");
-        if (pf.findPath(start, end).Count > 0)
+       
+        if (pf.findPath(new Point(start.X,start.Y), new Point(end.X,end.Y)).Count > 0)
+        {
+            print(true+"\n");
             return true;
+        }
         else
+        {
+            print(false + "\n");
             return false;
+        }
     }
+            
 
     GameObject createRangeBlock(GameObject player, Vector3 position)
     {
-        //if (isBlockAccessable(searchBlockByPostion(player.transform.position), searchBlockByPostion(position)))
+        if (isBlockAccessable(searchBlockByPostion(player.transform.position), searchBlockByPostion(position)))
             return movingBlock = (GameObject)Instantiate(movingBlock, position, Quaternion.identity);
-        //else
-            //return null;
+        else
+            return null;
     }
 
     public void createRange(GameObject player)

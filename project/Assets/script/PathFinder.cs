@@ -65,7 +65,7 @@ public class PathFinder : MonoBehaviour
     }
 
     //给实际的二维坐标，得到矩阵坐标
-    Point findPointInMap(float x, float y)
+    public Point findPointInMap(float x, float y)
     {
         Point result = null;
         //遍历二维坐标矩阵
