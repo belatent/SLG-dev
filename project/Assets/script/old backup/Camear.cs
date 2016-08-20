@@ -145,8 +145,8 @@ public class Camear : MonoBehaviour
     Vector3[,] findPassableBlocks()
     {
         //get block info
-        float col = BlockCreater.length;
-        float row = BlockCreater.width;
+        float col = BlockCreator.length;
+        float row = BlockCreator.width;
 
         float blockLength = singleBlock.GetComponent<BoxCollider>().size.x;
         float blockWidth = singleBlock.GetComponent<BoxCollider>().size.y;

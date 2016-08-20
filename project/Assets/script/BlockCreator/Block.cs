@@ -6,6 +6,7 @@ public class Block : MonoBehaviour {
     public GameObject blockPerfab;
     public coordinate coord { get; set; }
     public bool isPath { get; set; }
+    public string blockType;
     string blockName;
     string describe;
     //blockEvent eventList;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BlockCreater : MonoBehaviour {
+public class BlockCreator : MonoBehaviour {
     public GameObject singleBlock;
     public GameObject movingBlock;
     public GameObject background;
@@ -16,6 +16,13 @@ public class BlockCreater : MonoBehaviour {
 
     public static float length;
     public static float width;
+
+    const string IMPASSABLE = "impassable";
+    const string PASSABLE = "passable";
+    const string MOVING_RANGE = "moving range";
+    const string ATK_RANGE = "attack range";
+    const string HEALING_RANGE = "healing range";
+    const string SELECT_RANGE = "select range";
 
     public Block[,] blocklist { get; set; }
     HelperMethods helper = new HelperMethods();
@@ -63,14 +70,27 @@ public class BlockCreater : MonoBehaviour {
 
     GameObject createRangeBlock(GameObject player, Vector3 position)
     {
+        float x;
+        float y;
+        Block movingBlockAtrb;
+
         if (isBlockAccessable(searchBlockByPostion(player.transform.position), searchBlockByPostion(position)))
-            return movingBlock = (GameObject)Instantiate(movingBlock, position, Quaternion.identity);
+        {
+            movingBlock = (GameObject)Instantiate(movingBlock, position, Quaternion.identity);
+            x = ((float)position.x - (float)player.transform.position.x) / (float)1.28;
+            y = ((float)position.y - (float)player.transform.position.y) / (float)1.28;
+            movingBlock.name = "moving block（" + y + ", " + x + " )";
+            movingBlockAtrb = (Block)movingBlock.GetComponent("Block");
+            movingBlockAtrb.blockType = MOVING_RANGE;
+            return movingBlock;
+        }
         else
             return null;
     }
 
     public void createRange(GameObject player)
     {
+        Block blockCreated;
         Block playerBlock = searchBlockByPostion(player.transform.position);
         Vector3 position;
         Character info =  (Character)player.GetComponent("Character");
@@ -86,7 +106,7 @@ public class BlockCreater : MonoBehaviour {
                     {
                         //第一象限
                         position = new Vector3(player.transform.position.x + x * blockLength, player.transform.position.y + y * blockWidth, 0);
-                        createRangeBlock(player,position);
+                        createRangeBlock(player, position);
                         //第二象限
                         position = new Vector3(player.transform.position.x - x * blockLength, player.transform.position.y + y * blockWidth, 0);
                         createRangeBlock(player, position);
@@ -178,12 +198,14 @@ public class BlockCreater : MonoBehaviour {
                         Sprite notPathBlock = Sprite.Create(notPath, spr.sprite.textureRect, new Vector2(0.5f, 0.5f));//注意居中显示采用0.5f值 
                         spr.sprite = notPathBlock;
                         block.isPath = false;
+                        block.blockType = IMPASSABLE;
                     }
                     else
                     {
                         Sprite pathBlock = Sprite.Create(path, spr.sprite.textureRect, new Vector2(0.5f, 0.5f));//注意居中显示采用0.5f值 
                         spr.sprite = pathBlock;
                         block.isPath = true;
+                        block.blockType = PASSABLE;
                     }
                 }
                 else
@@ -191,6 +213,7 @@ public class BlockCreater : MonoBehaviour {
                     Sprite pathBlock = Sprite.Create(path, spr.sprite.textureRect, new Vector2(0.5f, 0.5f));//注意居中显示采用0.5f值 
                     spr.sprite = pathBlock;
                     block.isPath = true;
+                    block.blockType = PASSABLE;
                 }
 
                 //add to block list
