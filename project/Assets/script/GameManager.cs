@@ -4,7 +4,8 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
     public GameObject MainCamera;
-    BlockCreator bc;
+    MapCreator mc;
+    RangeCreator rc;
     PathFinder pf;
     GameObject focusPlayer; //player current operating
 
@@ -13,11 +14,13 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //setup tools
-        bc = (BlockCreator)this.gameObject.GetComponent("BlockCreator");
+        mc = (MapCreator)this.gameObject.GetComponent("MapCreator");
+        rc = (RangeCreator)this.gameObject.GetComponent("RangeCreator");
         pf = (PathFinder)this.gameObject.GetComponent("PathFinder");
-        //create map
-        bc.blocklist = bc.createMap();
-        pf.getBlockList();
+        //init
+        mc.init();
+        rc.init();
+        pf.init();
     }
 	
 	// Update is called once per frame
@@ -43,13 +46,13 @@ public class GameManager : MonoBehaviour {
                 {
                     if (!rangeCreated)
                     {
-                        bc.createRange(hit.collider.gameObject);
+                        rc.createRange(hit.collider.gameObject);
                         rangeCreated = true;
                     }
                 }else if (hit.collider.tag.Equals("moving range"))
                 {
                     pf.setNextPath(hit);
-                    bc.destoryBlockByTag("moving range");
+                    rc.destoryBlockByTag("moving range");
                     rangeCreated = false;
                 }
             }

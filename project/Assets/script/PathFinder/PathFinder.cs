@@ -54,13 +54,13 @@ public class PathFinder : MonoBehaviour
         }
     }
 
-    public void getBlockList()
+    public void init()
     {
-        BlockCreator bc = (BlockCreator)this.gameObject.GetComponent("BlockCreator");
-        blocklist = bc.blocklist;
+        MapCreator mc = (MapCreator)this.gameObject.GetComponent("MapCreator");
+        blocklist = mc.blocklist;
         int col = blocklist.GetLength(1);
         int row = blocklist.GetLength(0);
-        //print(col + row);
+        print("Path Finder initialized.");
     }
 
     //转化通行路径为实际坐标路径
@@ -68,8 +68,7 @@ public class PathFinder : MonoBehaviour
     {
         Vector3[] next = null;
 
-        //update block list
-        getBlockList();
+        //show block list
         printMapArray();
 
         Block block = (Block)hit.collider.GetComponent("Block");
