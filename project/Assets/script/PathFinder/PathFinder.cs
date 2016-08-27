@@ -8,7 +8,7 @@ public class PathFinder : MonoBehaviour
     Block[,] blocklist; //map
     Vector3[] movingPath = null;
     Vector3 targetPos = Vector3.back; //end point for each moving, init it to an unreachable point [v3.back:(0,0,-1)]
-    bool playerPositionNeedToCorrect = false;
+    bool fouceMovingByPath = true;
 
     // Use this for initialization
     void Start()
@@ -30,23 +30,27 @@ public class PathFinder : MonoBehaviour
             //保存最终目标坐标，在计算新路径时强制更新坐标
             targetPos = movingPath[movingPath.Length - 1];
             //按路径移动，有0.00125*格数的固定误差，原因不明
-            iTween.MoveTo(player, iTween.Hash("position", new Vector3(movingPath[movingPath.Length - 1].x, movingPath[movingPath.Length - 1].y, 0), "path", movingPath, "speed", 10f));
+            iTween.MoveTo(player, iTween.Hash("position", new Vector3(movingPath[movingPath.Length - 1].x, movingPath[movingPath.Length - 1].y, 0), "path", movingPath, "speed", 5f));
             //清空移动路径
             movingPath = null;
-            playerPositionNeedToCorrect = true;
+            print(targetPos);
         }
-        else if(playerPositionNeedToCorrect)
-            //correct player's position
-            correctPlayerPosition();
+        else
+        {
+            if(fouceMovingByPath)
+                //correct player's position
+                correctPlayerPosition();
+        }
+            
     }
 
     void correctPlayerPosition()
     {
         //因为有不明原因误差，所以强制修改最终目标坐标适应寻路
-        if (targetPos.z != -1)
+        if (targetPos.z != -1 && player.transform.position != targetPos)
         {
-            player.transform.position = targetPos;
-            playerPositionNeedToCorrect = false;
+            if(targetPos.x - player.transform.position.x < 0.01 || targetPos.y - player.transform.position.y < 0.01)
+                player.transform.position = targetPos;
         }
     }
 
@@ -56,7 +60,7 @@ public class PathFinder : MonoBehaviour
         blocklist = bc.blocklist;
         int col = blocklist.GetLength(1);
         int row = blocklist.GetLength(0);
-        print(col + row);
+        //print(col + row);
     }
 
     //转化通行路径为实际坐标路径
@@ -98,7 +102,7 @@ public class PathFinder : MonoBehaviour
 
         int[,] target = convertBlockInfoToIntArray(blocklist);
 
-        AStar maze = new AStar(target);
+        AStar maze = new AStar(target,false);
 
         var parent = maze.FindPath(start, end, false);
 

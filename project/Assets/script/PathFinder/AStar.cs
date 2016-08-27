@@ -9,12 +9,14 @@ public class AStar
     public int[,] MazeArray { get; private set; }
     List<Point> CloseList;
     List<Point> OpenList;
+    bool obliqueSupport;
 
-    public AStar(int[,] maze)
+    public AStar(int[,] maze,bool obliqueSupport)
     {
         this.MazeArray = maze;
         OpenList = new List<Point>(MazeArray.Length);
         CloseList = new List<Point>(MazeArray.Length);
+        this.obliqueSupport = obliqueSupport;
     }
 
     public Point FindPath(Point start, Point end, bool IsIgnoreCorner)
@@ -65,7 +67,7 @@ public class AStar
 
     private int CalcG(Point start, Point point)
     {
-        int G = (Math.Abs(point.X - start.X) + Math.Abs(point.Y - start.Y)) == 2 ? STEP : OBLIQUE;
+        int G = (obliqueSupport)?((Math.Abs(point.X - start.X) + Math.Abs(point.Y - start.Y)) == 2 ? STEP : OBLIQUE):STEP;
         int parentG = point.ParentPoint != null ? point.ParentPoint.G : 0;
         return G + parentG;
     }
@@ -104,14 +106,16 @@ public class AStar
         {
             if (Math.Abs(x - start.X) + Math.Abs(y - start.Y) == 1)
                 return true;
-            //如果是斜方向移动, 判断是否 "拌脚"
-            else
+            //如果支持斜向移动且当前是斜方向移动, 判断是否 "拌脚"
+            else if(obliqueSupport)
             {
                 if (CanReach(Math.Abs(x - 1), y) && CanReach(x, Math.Abs(y - 1)))
                     return true;
                 else
                     return IsIgnoreCorner;
             }
+            else
+                return false;
         }
     }
 }

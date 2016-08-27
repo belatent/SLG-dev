@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
     PathFinder pf;
     GameObject focusPlayer; //player current operating
 
+    bool rangeCreated = false;
+
     // Use this for initialization
     void Start () {
         //setup tools
@@ -39,11 +41,16 @@ public class GameManager : MonoBehaviour {
 
                 if (hit.collider.tag.Equals("Player"))
                 {
-                    bc.createRange(hit.collider.gameObject);
+                    if (!rangeCreated)
+                    {
+                        bc.createRange(hit.collider.gameObject);
+                        rangeCreated = true;
+                    }
                 }else if (hit.collider.tag.Equals("moving range"))
                 {
-                    print("11111111111111");
                     pf.setNextPath(hit);
+                    bc.destoryBlockByTag("moving range");
+                    rangeCreated = false;
                 }
             }
         }
