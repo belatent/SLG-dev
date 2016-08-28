@@ -9,6 +9,7 @@ public class PathFinder : MonoBehaviour
     Vector3[] movingPath = null;
     Vector3 targetPos = Vector3.back; //end point for each moving, init it to an unreachable point [v3.back:(0,0,-1)]
     bool fouceMovingByPath = true;
+    public bool focusThis { get; set; }
 
     // Use this for initialization
     void Start()
@@ -24,6 +25,8 @@ public class PathFinder : MonoBehaviour
 
     void move()
     {
+        if (!focusThis)
+            return;
         if (movingPath != null && movingPath.Length > 0)
         {
             //print(movingPath[movingPath.Length - 1].x + " " + movingPath[movingPath.Length - 1].y + " " + movingPath[movingPath.Length - 1].z);
@@ -56,6 +59,7 @@ public class PathFinder : MonoBehaviour
 
     public void init()
     {
+        focusThis = true;
         MapCreator mc = (MapCreator)this.gameObject.GetComponent("MapCreator");
         blocklist = mc.blocklist;
         int col = blocklist.GetLength(1);

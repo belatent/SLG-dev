@@ -7,16 +7,20 @@ public class GameManager : MonoBehaviour {
     MapCreator mc;
     RangeCreator rc;
     PathFinder pf;
-    GameObject focusPlayer; //player current operating
+    UIManager uim;
+    public GameObject focusPlayer { get; set; } //player current operating
+    public bool focusThis{get;set;}
 
-    bool rangeCreated = false;
+    bool battleMenuCreated = false;
 
     // Use this for initialization
     void Start () {
         //setup tools
+        focusThis = true;
         mc = (MapCreator)this.gameObject.GetComponent("MapCreator");
         rc = (RangeCreator)this.gameObject.GetComponent("RangeCreator");
         pf = (PathFinder)this.gameObject.GetComponent("PathFinder");
+        uim = (UIManager)this.gameObject.GetComponent("UIManager");
         //init
         mc.init();
         rc.init();
@@ -31,6 +35,8 @@ public class GameManager : MonoBehaviour {
 
     void checkClick()
     {
+        if (!focusThis)
+            return;
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = MainCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
@@ -44,16 +50,12 @@ public class GameManager : MonoBehaviour {
 
                 if (hit.collider.tag.Equals("Player"))
                 {
-                    if (!rangeCreated)
-                    {
-                        rc.createRange(hit.collider.gameObject);
-                        rangeCreated = true;
-                    }
+                    focusPlayer = hit.collider.gameObject;
+                    uim.createBattleMenu(hit.collider.transform.position);
                 }else if (hit.collider.tag.Equals("moving range"))
                 {
                     pf.setNextPath(hit);
                     rc.destoryBlockByTag("moving range");
-                    rangeCreated = false;
                 }
             }
         }
