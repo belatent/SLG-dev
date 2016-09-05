@@ -35,6 +35,5 @@ public class UIManager : MonoBehaviour {
         Vector3 menuPos = new Vector3(camPos.x+battleMenuPosition,camPos.y, 0);
 
         battleMenu = (GameObject)Instantiate(battleMenu, menuPos, Quaternion.identity);
-        battleMenuPosition = Mathf.Abs(battleMenuPosition);
     }
 }
