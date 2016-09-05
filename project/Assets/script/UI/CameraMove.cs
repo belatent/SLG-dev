@@ -9,27 +9,27 @@ public class CameraMove : MonoBehaviour {
     public float maxSize;
     public float zoomSensitivity;
     Camera camera;
-    Vector2 minXY;
-    Vector2 maxXY;
+    public Vector2 minXY;
+    public Vector2 maxXY;
 
 
     // Use this for initialization
     void Start () {
         camera = (Camera)this.gameObject.GetComponent("Camera");
-        setMANandMin();
+        //setMANandMin();
     }
 
-    void setMANandMin()
-    {
-        float camY = camera.orthographicSize * 2;
-        float camX = camY * (16 / 9);
-        RectTransform bkTransform = background.GetComponent(typeof(RectTransform)) as RectTransform;
-        Vector2 bkWL = bkTransform.sizeDelta;//x - width, y - length
+    //void setMANandMin()
+    //{
+    //    float camY = camera.orthographicSize * 2;
+    //    float camX = camY * (16 / 9);
+    //    RectTransform bkTransform = background.GetComponent(typeof(RectTransform)) as RectTransform;
+    //    Vector2 bkWL = bkTransform.sizeDelta;//x - width, y - length
         
-        minXY = new Vector2(bkWL.x/2 + camX, -bkWL.y / 2 - camY );
-        maxXY = new Vector2(-bkWL.x / 2 - camX, bkWL.y / 2 + camY);
-        //print(minXY + " " + maxXY);
-    }
+    //    minXY = new Vector2(bkWL.x/2 + camX, -bkWL.y / 2 - camY );
+    //    maxXY = new Vector2(-bkWL.x / 2 - camX, bkWL.y / 2 + camY);
+    //    //print(minXY + " " + maxXY);
+    //}
 	
 	// Update is called once per frame
 	void Update () {
@@ -43,8 +43,8 @@ public class CameraMove : MonoBehaviour {
         {
             print(Input.mousePosition);
         }
-            //move right
-            if (Input.mousePosition.x >= Screen.width - margin)
+        //move right
+        if (Input.mousePosition.x >= Screen.width - margin)
         {
             transform.position = new Vector3(Mathf.Clamp(transform.position.x + moveSensitivity,minXY.x,maxXY.x), transform.position.y,0);
         }
@@ -72,7 +72,7 @@ public class CameraMove : MonoBehaviour {
         size += Input.GetAxis("Mouse ScrollWheel") * zoomSensitivity;
         size = Mathf.Clamp(size, minSize, maxSize);
         camera.orthographicSize = size;
-        setMANandMin();
+        //setMANandMin();
     }
 
     void checkKeyPress()

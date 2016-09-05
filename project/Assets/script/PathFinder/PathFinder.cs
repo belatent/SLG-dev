@@ -3,13 +3,13 @@ using System.Collections;
 
 public class PathFinder : MonoBehaviour
 {
-    public GameObject player; //player current operating
     public GameObject MainCamera;
     Block[,] blocklist; //map
     Vector3[] movingPath = null;
     Vector3 targetPos = Vector3.back; //end point for each moving, init it to an unreachable point [v3.back:(0,0,-1)]
     bool fouceMovingByPath = true;
     public bool focusThis { get; set; }
+    GameObject player; //player current operating
 
     // Use this for initialization
     void Start()
@@ -68,8 +68,9 @@ public class PathFinder : MonoBehaviour
     }
 
     //转化通行路径为实际坐标路径
-    public void setNextPath(RaycastHit hit)
+    public void setNextPath(RaycastHit hit, GameObject player)
     {
+        this.player = player;
         Vector3[] next = null;
 
         //show block list

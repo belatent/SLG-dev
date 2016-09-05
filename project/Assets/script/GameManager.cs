@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour {
                     uim.createBattleMenu(hit.collider.transform.position);
                 }else if (hit.collider.tag.Equals("moving range"))
                 {
-                    pf.setNextPath(hit);
+                    pf.setNextPath(hit,focusPlayer);
                     rc.destoryBlockByTag("moving range");
                 }
             }
