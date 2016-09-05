@@ -6,22 +6,17 @@ using Mono.Data.Sqlite;
 
 public class CharacterManager : MonoBehaviour {
 
-    /// SQLite数据库辅助类
-    //private SQLiteHelper sql;
-
-    private string connectionString;
 
 	// Use this for initialization
 	void Start () {
-        connectionString = "URI=file:" + Application.dataPath + "/sqlite_unity_game.db";
-        accessCharacters();
+        
     }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
-
+    /*
     private void accessCharacters() {
         using (IDbConnection dbConnection = new SqliteConnection(connectionString)) {
             dbConnection.Open();
@@ -40,5 +35,5 @@ public class CharacterManager : MonoBehaviour {
         }
 
 
-    }
+    }*/
 }
