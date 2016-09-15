@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
     UIManager uim;
     public GameObject focusPlayer { get; set; } //player current operating
     public bool focusThis{get;set;}
+    HelperMethods helper = new HelperMethods();
 
     bool battleMenuCreated = false;
 
@@ -50,8 +51,11 @@ public class GameManager : MonoBehaviour {
 
                 if (hit.collider.tag.Equals("Player"))
                 {
-                    focusPlayer = hit.collider.gameObject;
-                    uim.createBattleMenu(hit.collider.transform.position);
+                    if (!helper.checkRangeExist())
+                    {
+                        focusPlayer = hit.collider.gameObject;
+                        uim.createBattleMenu(hit.collider.transform.position);
+                    }
                 }else if (hit.collider.tag.Equals("moving range"))
                 {
                     pf.setNextPath(hit,focusPlayer);
@@ -60,4 +64,6 @@ public class GameManager : MonoBehaviour {
             }
         }
     }
+
+
 }

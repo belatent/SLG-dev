@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour {
     public GameObject battleMenu;
     public int battleMenuPosition;
     GameObject gmObj;
+    HelperMethods helper = new HelperMethods();
     // Use this for initialization
     void Start () {
 	
@@ -22,8 +23,19 @@ public class UIManager : MonoBehaviour {
             battleMenu = (GameObject)Resources.Load("perfab/battleMenu");
     }
 
+    bool checkRangeExist()
+    {
+        foreach (GameObject gameObj in FindObjectsOfType<GameObject>())
+        {
+            if (gameObj.tag.Equals("moving range"))
+                return true;
+        }
+        return false;
+    }
+
     public void createBattleMenu(Vector3 position)
     {
+        CameraMove camMove = (CameraMove)mainCamera.GetComponent("CameraMove");
         gmObj = GameObject.FindGameObjectWithTag("GM");
         GameManager gm = (GameManager)gmObj.GetComponent("GameManager");
         gm.focusThis = false;
@@ -32,8 +44,9 @@ public class UIManager : MonoBehaviour {
 
         if (position.x > camPos.x)
             battleMenuPosition = -battleMenuPosition;
-        Vector3 menuPos = new Vector3(camPos.x+battleMenuPosition,camPos.y, 0);
+        Vector3 menuPos = new Vector3(camPos.x + battleMenuPosition, camPos.y, 0);
 
         battleMenu = (GameObject)Instantiate(battleMenu, menuPos, Quaternion.identity);
+        camMove.lockCam();
     }
 }

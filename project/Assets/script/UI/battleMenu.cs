@@ -31,8 +31,8 @@ public class battleMenu : MonoBehaviour {
 
     void checkClick()
     {
-        
-        
+        CameraMove camMove = (CameraMove)MainCamera.GetComponent("CameraMove");
+
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = MainCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
@@ -69,6 +69,7 @@ public class battleMenu : MonoBehaviour {
 
                 }
                 DestroyObject(this.gameObject);
+                camMove.unlockCam();
                 gm.focusThis = true;
             }
         }

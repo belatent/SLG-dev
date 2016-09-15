@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HelperMethods {
+public class HelperMethods : MonoBehaviour
+{
 
     /// <summary>
     /// 转换float为int，有小数进1
@@ -14,5 +15,15 @@ public class HelperMethods {
             return (int)num + 1;
         else
             return (int)num;
+    }
+
+    public bool checkRangeExist()
+    {
+        foreach (GameObject gameObj in FindObjectsOfType<GameObject>())
+        {
+            if (gameObj.tag.Equals("moving range"))
+                return true;
+        }
+        return false;
     }
 }

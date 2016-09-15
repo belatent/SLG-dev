@@ -11,30 +11,21 @@ public class CameraMove : MonoBehaviour {
     Camera camera;
     public Vector2 minXY;
     public Vector2 maxXY;
-
+    bool cameraLock = false;
 
     // Use this for initialization
     void Start () {
         camera = (Camera)this.gameObject.GetComponent("Camera");
         //setMANandMin();
     }
-
-    //void setMANandMin()
-    //{
-    //    float camY = camera.orthographicSize * 2;
-    //    float camX = camY * (16 / 9);
-    //    RectTransform bkTransform = background.GetComponent(typeof(RectTransform)) as RectTransform;
-    //    Vector2 bkWL = bkTransform.sizeDelta;//x - width, y - length
-        
-    //    minXY = new Vector2(bkWL.x/2 + camX, -bkWL.y / 2 - camY );
-    //    maxXY = new Vector2(-bkWL.x / 2 - camX, bkWL.y / 2 + camY);
-    //    //print(minXY + " " + maxXY);
-    //}
 	
 	// Update is called once per frame
 	void Update () {
-        zoomCam();
-        moveCam();
+        if (!cameraLock)
+        {
+            zoomCam();
+            moveCam();
+        }
     }
 
     void moveCam()
@@ -73,6 +64,18 @@ public class CameraMove : MonoBehaviour {
         size = Mathf.Clamp(size, minSize, maxSize);
         camera.orthographicSize = size;
         //setMANandMin();
+    }
+
+    public void lockCam()
+    {
+        if (!cameraLock)
+            cameraLock = true;
+    }
+
+    public void unlockCam()
+    {
+        if (cameraLock)
+            cameraLock = false;
     }
 
     void checkKeyPress()

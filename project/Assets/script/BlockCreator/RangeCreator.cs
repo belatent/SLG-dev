@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class RangeCreator : MonoBehaviour {
+    public GameObject MainCamera;
     public GameObject movingBlock;
     public int blockWidth;
     public int blockLength;
@@ -52,9 +53,13 @@ public class RangeCreator : MonoBehaviour {
         Point end = new Point(targetBlock.coord.y + 1, targetBlock.coord.x + 1);
         PathFinder pf = (PathFinder)this.gameObject.GetComponent("PathFinder");
         ArrayList path = pf.findPath(new Point(start.X, start.Y), new Point(end.X, end.Y));
+        Ray ray = MainCamera.GetComponent<Camera>().ScreenPointToRay(targetBlock.transform.position);
+        RaycastHit hit;
 
         if (path.Count > 0 && path.Count <= range + 1)
         {
+            if (Physics.Raycast(ray, out hit) && hit.collider.tag.Equals("Player"))
+                return false;
             return true;
         }
         else
