@@ -1,6 +1,7 @@
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
+[Aa]rtsAssets/
 .vs/
 资源/
 创意(有任何想法在这里更新)/
@@ -26,3 +27,4 @@ project/game.sln
 *.meta
 *.dll
 project/project.sln
+project/Assets/NGUI/Examples/Atlases/SciFi/SciFi Atlas.mat

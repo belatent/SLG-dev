@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour {
                     {
                         focusPlayer = hit.collider.gameObject;
                         uim.createBattleMenu(hit.collider.transform.position);
+                        uim.createBattleMenu(hit.collider.transform.position);
                     }
                 }else if (hit.collider.tag.Equals("moving range"))
                 {

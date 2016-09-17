@@ -17,6 +17,8 @@ TagManager:
   - UI-Pass
   - GM
   - attacking range
+  - UI-MainScene
+  - UI-MainScene-highlight
   layers:
   - Default
   - TransparentFX
@@ -54,12 +56,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: MainScene
+    uniqueID: 1666902557
+    locked: 0
+  - name: Map
+    uniqueID: 866071759
+    locked: 0
+  - name: Effect
+    uniqueID: 2672783499
+    locked: 0
   - name: UI
     uniqueID: 2172461675
     locked: 0
   - name: Player
     uniqueID: 2490767619
-    locked: 0
-  - name: Map
-    uniqueID: 866071759
     locked: 0
